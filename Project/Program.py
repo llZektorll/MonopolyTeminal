@@ -13,3 +13,7 @@
 #.LINK 
 #    Script repository: https://github.com/llZektorll/MonopolyTeminal
 
+from View import *
+
+if __name__ == "__main__":
+    start = main()
