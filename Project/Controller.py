@@ -29,11 +29,24 @@ def reg_player(name):
         return players
 
 
-
-
 def check_player(players, name):
     for player in players:
         if player['Name'] == name:
             return True
     return False
+
+
+def escrita_ficheiros(file_1, dados):
+
+    arquivo = open(file_1, "w")
+    arquivo.write(dados)
+    arquivo.close()
+
+
+def ler_ficheiro(file_1, dados):
+
+    arquivo = open(file_1, encoding="utf8")
+    linhas = arquivo.read()
+    arquivo.close()
+    return linhas
 

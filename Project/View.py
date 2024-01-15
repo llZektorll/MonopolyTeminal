@@ -25,6 +25,6 @@ def main():
     elif option == 2:
         print ('test 2')
     elif option == 3:
-        print ('test3')
+        print ('test 3')
     else :
         print(f'Opção selecionada não é válida!')
