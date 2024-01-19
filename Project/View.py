@@ -6,8 +6,7 @@ def main():
     # region Variables
     players = []
     player_name = []
-    board = 4  # 4x4
-    house = 5
+    roll = 0
     board_position = {
         0: {
             "position": "0",
@@ -95,7 +94,6 @@ def main():
             "owner": "Board"},
     }
 
-    player_location = {'player1': 1, 'player2': 1, 'player3': 5}
     # endregion
     while True:
         # region menu
