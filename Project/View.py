@@ -3,10 +3,10 @@ from Controller import *
 
 def main():
 
-    player_info_file = "c:/file.json"
+    
 
     # region Variables
-    players = []
+    players = load_data()
     player_name = []
     roll = 0
     board_position = {
@@ -153,6 +153,7 @@ def main():
         elif option == 2:
             print('test 2')
         elif option == 9:
+            save_data(players)
             quit()
         else:
             print(f'Opção selecionada não é válida!')

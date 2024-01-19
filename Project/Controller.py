@@ -15,13 +15,13 @@ import json
 
 
 def save_data(players):
-    with open("data1.json", "w") as file:
+    with open("data.json", "w") as file:
         json.dump(players, file)
 
 
 def load_data():
     try:
-        with open("data1.json", "r") as file:
+        with open("data.json", "r") as file:
             return json.load(file)
     except (json.JSONDecodeError):
         return []
