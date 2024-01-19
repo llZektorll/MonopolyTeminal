@@ -11,10 +11,26 @@
     definition of winning
 '''
 import random
+import json
+
+
+def save_data(players):
+    with open("data1.json", "w") as file:
+        json.dump(players, file)
+
+
+def load_data():
+    try:
+        with open("data1.json", "r") as file:
+            return json.load(file)
+    except (json.JSONDecodeError):
+        return []
+
 
 def dice_roll():
-    roll = random.randint(1,6) + random.randint(1,6)
+    roll = random.randint(1, 6) + random.randint(1, 6)
     return roll
+
 
 def reg_player(players, player_name):
     for player in player_name:
@@ -24,7 +40,7 @@ def reg_player(players, player_name):
     return players
 
 
-def comprar_propriedade(board_position,player):
+def comprar_propriedade(board_position, player):
     if (player['money'] <= 0):
         print('Insufficient funds.')
     if (board_position[CardPosition]["owner"] != player):

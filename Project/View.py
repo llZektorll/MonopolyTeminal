@@ -1,8 +1,23 @@
 from Controller import *
-import json
 
 
 def main():
+
+    player_info_file = "c:/file.json"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     # region Variables
     players = []
     player_name = []
