@@ -5,19 +5,6 @@ def main():
 
     player_info_file = "c:/file.json"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     # region Variables
     players = []
     player_name = []
@@ -28,85 +15,113 @@ def main():
             "name": "Casa de Partida",
             "color": "white",
             "price": "200",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         1: {
             "position": "1",
             "name": "Campo Grande",
             "color": "Purple",
             "price": "60",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         2: {
             "position": "2",
             "name": "Caixa da Comunidade",
             "color": "White",
             "price": "0",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         3: {
             "position": "3",
             "name": "Rua Faria Guimarães",
             "color": "Purple",
             "price": "60",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         4: {
             "position": "4",
             "name": "Pague imposto sobre Capitais",
             "color": "White",
             "price": "200",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         5: {
             "position": "5",
             "name": "Estação do Rossio",
             "color": "Black",
             "price": "200",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         6: {
             "position": "6",
             "name": "Alamenda das linhas de Torres",
             "color": "Cyan",
             "price": "100",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         7: {
             "position": "7",
             "name": "Sorte",
             "color": "White",
             "price": "0",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         8: {
             "position": "8",
             "name": "Avenida das Nações Unidas",
             "color": "Cyan",
             "price": "100",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         9: {
             "position": "9",
             "name": "Avenida 24 de Julho",
             "color": "Cyan",
             "price": "120",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         10: {
             "position": "10",
             "name": "Cadeia",
             "color": "White",
             "price": "0",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         11: {
             "position": "11",
             "name": "Avenida Central",
             "color": "Purple",
             "price": "140",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         12: {
             "position": "12",
             "name": "Companhia de Electricidade",
             "color": "White",
             "price": "150",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
         13: {
             "position": "13",
             "name": "Rua Ferreira Borges",
             "color": "Purple",
             "price": "140",
-            "owner": "Board"},
+            "owner": "Board",
+            "house": 0,
+            "pawn": "no"},
     }
 
     # endregion
