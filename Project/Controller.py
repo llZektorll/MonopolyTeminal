@@ -2,7 +2,7 @@ import random
 import json
 
 # File path
-player_file = "saved_data.json"
+player_file = "data.json"
 
 # Load information from file
 
@@ -10,17 +10,22 @@ player_file = "saved_data.json"
 def load_file():
     try:
         with open(player_file, 'r') as file:
-            player_info = json.load(file)
+            players = json.load(file)
     except FileNotFoundError:
-        player_info = {}
-    return player_info
+        players = {}
+    return players
 
 # Save player information
 
 
-def save_file(player_file, player_info):
+def save_file(player_file, players):
+    user = []
+    for p in players:
+        data = p['name': players['name'], 'games_won': players['games_won'],
+                 'games_played': players['game_played']]
+        user.append(data)
     with open(player_file, 'w') as file:
-        json.dump(player_info, file, indent=2)
+        json.dump(file, user, indent=2)
 
 # Register player
 
@@ -62,9 +67,6 @@ def pay_rent(players, owner, rent):
             if p['money'] <= rent:
                 p['money'] -= rent
                 print(f"{players['name']} paid €{rent} in rent to {owner}.")
-            else:
-                if p['money'] < rent:
-                    p['status'].append({'status': 1})
 
 # Buy Property
 
@@ -113,19 +115,23 @@ def sell_house(player, property):
 # Check Winner
 
 
-def check_winner(player, board):
+def check_winner(player, board, players):
+    board_status = 0
     for location in board:
         if location['owner'] == None:
             continue
         else:
-            
-            for p in player:
-                owned_properties = sum(
-                    1 for prop in board if prop['owner'] == player['name'])
-            if owned_properties > len(board) / 2:
-                player['games_won'] += 1
+            board_status += 1
+    if board_status == 14:
+        user = players.sort(players['properties'])
+        for p in user:
+            if p == p[0]:
+                p['games_won'] += 1
+                p['games_played'] += 1
                 print(f"Congratulations, {player['name']}! You won the game!")
-                # save_file(player_file, player_info)
+            else:
+                p['games_played'] += 1
+        save_file(player_file, players)
 
 
 # Dice Roll
@@ -195,7 +201,7 @@ def play_game(players, current_player, board):
         if player['status'] == 0:
             display_board(board)
             play_turn(player, board, players)
-            check_winner(player, board)
+            check_winner(player, board, player)
         else:
             continue
 
