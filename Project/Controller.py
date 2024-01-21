@@ -185,16 +185,16 @@ def play_turn(player, board, players):
         elif choice == '3' and current_property['house'] > 0:
             sell_house(player, current_property)
     elif current_property['pawn'] == True and current_property['owner'] == player['name']:
-        print(
-            f"{current_property['name']} está hipotecada. Quer desipoteca-la?")
-        response = input("Selecione 1 para 'SIM' e 2 para 'NÃO': ").lower()
         while True:
+            print(
+                f"{current_property['name']} está hipotecada. Quer desipoteca-la?")
+            response = input("Selecione 1 para 'SIM' e 2 para 'NÃO': ").lower()
             if response == '1' and player['money'] >= current_property['price']:
                 buy_back_property(player, current_property)
-                continue
+                return
             elif response == '2':
                 print('Propriedade não foi desipotecada')
-                continue
+                return
             else:
                 print('Opção inválida')
     elif current_property['pawn'] == True and current_property['owner'] != player['name']:
