@@ -36,7 +36,7 @@ def reg_player(players):
 def display_board(board):
     print('\n Tabuleiro do Monopolio ......')
     for i, property in enumerate(board):
-        owner_info = (f'Owner: {property["owner"]}')
+        owner_info = (f'Dono: {property["owner"]}')
         if property['pawn'] == True:
             owner_info += " (Penhorado)"
 
@@ -48,7 +48,7 @@ def display_board(board):
 
         # Use format specifiers to specify a fixed width for the name
         print(
-            f"{index_format}{property['name']:<30} - {property['price']:>3}$ - {owner_info} - Houses: {property['house']}")
+            f"{index_format}{property['name']:<30} - {property['price']:>3}€ - {owner_info} - Casas: {property['house']}")
 
 # Pay Rent
 

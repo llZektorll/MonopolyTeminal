@@ -47,6 +47,7 @@ def main():
     if menu_option == 1:
         reg_player(players)
         play_game(players, current_player, board)
+        main()
     if menu_option == 2:
         player_history = load_file()
         print(player_history)
@@ -55,3 +56,4 @@ def main():
         quit()
     else:
         print('Opção inválida')
+        main()
