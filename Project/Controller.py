@@ -115,11 +115,13 @@ def sell_house(player, property):
 
 def check_winner(player, board):
     for location in board:
-        if location['owner'] != None:
+        if location['owner'] == None:
             continue
         else:
-            owned_properties = sum(
-                1 for prop in board if prop['owner'] == player['name'])
+            
+            for p in player:
+                owned_properties = sum(
+                    1 for prop in board if prop['owner'] == player['name'])
             if owned_properties > len(board) / 2:
                 player['games_won'] += 1
                 print(f"Congratulations, {player['name']}! You won the game!")
@@ -136,7 +138,6 @@ def dice_roll():
 
 # Player turn
 def play_turn(player, board, players):
-    global player_info
     roll = dice_roll()
     print(f"{player['name']}'s turn. Dice roll: {roll}")
 
@@ -150,7 +151,7 @@ def play_turn(player, board, players):
         response = input("Enter 'yes' or 'no': ").lower()
         if response == 'yes' and player['money'] >= current_property['price']:
             buy_property(player, current_property)
-    elif current_property['owner'] == player['name']:
+    elif current_property['owner'] == player['name'] and current_property['pawn'] != True:
         print(
             f"{player['name']}, what do you want to do with {current_property['name']}?")
         print("1. Build a house")
@@ -163,13 +164,16 @@ def play_turn(player, board, players):
             pawn_property(player, current_property)
         elif choice == '3' and current_property['house'] > 0:
             sell_house(player, current_property)
-
-    elif current_property['pawn']:
+    elif current_property['pawn'] == True and current_property['owner'] == player['name']:
         print(
             f"{current_property['name']} is pawned. Do you want to buy it back?")
         response = input("Enter 'yes' or 'no': ").lower()
         if response == 'yes' and player['money'] >= current_property['price']:
             buy_back_property(player, current_property)
+    elif current_property['pawn'] == True and current_property['owner'] != player['name']:
+        print(
+            f"{current_property['name']} is owned by {current_property['owner']}.")
+        input('Press enter to continue')
     else:
         rent_amount = current_property['rent']
         print(

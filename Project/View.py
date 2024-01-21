@@ -1,10 +1,11 @@
 from Controller import *
 
+
 def main():
     players = []
     current_player = 0
     board = [
-        {"name": "Casa de Partida", "price": 200,
+        {"name": "Primeira Casa", "price": 200,
             "owner": None, "house": 0, "pawn": False, "rent": 20},
         {"name": "Campo Grande", "price": 60, "owner": None,
             "house": 0, "pawn": False, "rent": 6},
@@ -18,13 +19,13 @@ def main():
             "owner": None, "house": 0, "pawn": False, "rent": 20},
         {"name": "Alamenda das linhas de Torres", "price": 100,
             "owner": None, "house": 0, "pawn": False, "rent": 10},
-        {"name": "Sorte", "price": 10, "owner": None,
+        {"name": "Tasca do Zé", "price": 10, "owner": None,
             "house": 0, "pawn": False, "rent": 1},
         {"name": "Avenida das Nações Unidas", "price": 100,
             "owner": None, "house": 0, "pawn": False, "rent": 10},
         {"name": "Avenida 24 de Julho", "price": 120,
             "owner": None, "house": 0, "pawn": False, "rent": 12},
-        {"name": "Cadeia", "price": 10, "owner": None,
+        {"name": "Hotel Moinas", "price": 10, "owner": None,
             "house": 0, "pawn": False, "rent": 1},
         {"name": "Avenida Central", "price": 140,
             "owner": None, "house": 0, "pawn": False, "rent": 14},
