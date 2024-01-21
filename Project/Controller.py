@@ -31,9 +31,9 @@ def save_file(player_file, players):
 
 
 def reg_player(players):
-    number_players = int(input('How many people will play? '))
+    number_players = int(input('Quantas pessoas vão jogar? '))
     for count in range(number_players):
-        player_name = input(f'Enter the name for the player {count+1}: ')
+        player_name = input(f'Indique o nome do jogador {count+1}: ')
         players.append({"name": player_name, "position": 0, "money": 1500,
                        "properties": 0, "games_won": 0, "games_played": 0, "status": 0})
 
@@ -42,11 +42,11 @@ def reg_player(players):
 
 def display_board(board):
     print(board)
-    print('\nMonopoly Board ......')
+    print('\n Tabuleiro do Monopolio ......')
     for i, property in enumerate(board):
         owner_info = (f'Owner: {property["owner"]}')
         if property['pawn'] == True:
-            owner_info += " (Pawned)"
+            owner_info += " (Penhorado)"
 
         # Adjust the formatting of the index based on the number of digits
         if i < 10:
@@ -66,7 +66,8 @@ def pay_rent(players, owner, rent):
         if p['name'] != owner:
             if p['money'] <= rent:
                 p['money'] -= rent
-                print(f"{players['name']} paid €{rent} in rent to {owner}.")
+                print(
+                    f"{players['name']} pagou €{rent} em renda ao jogador {owner}.")
 
 # Buy Property
 
@@ -76,7 +77,7 @@ def buy_property(player, property):
     player['money'] -= property['price']
     player['properties'] += 1
     print(
-        f"{player['name']} bought {property['name']} for ${property['price']}.")
+        f"{player['name']} comprou {property['name']} por €{property['price']}.")
 
 #  Build a house
 
@@ -84,7 +85,7 @@ def buy_property(player, property):
 def build_house(player, property):
     property['house'] += 1
     player['money'] -= 100
-    print(f"{player['name']} built a house on {property['name']}.")
+    print(f"{player['name']} construiu casa em {property['name']}.")
 
 # Pawn Property
 
@@ -92,7 +93,7 @@ def build_house(player, property):
 def pawn_property(player, property):
     property['pawn'] = True
     print(
-        f"{player['name']} pawned {property['name']}. Rent on this property is now $0.")
+        f"{player['name']} hipotecou {property['name']}.A renda agora é €0.")
 
 # Buy back the property
 
@@ -101,7 +102,7 @@ def buy_back_property(player, property):
     property['pawn'] = False
     player['money'] -= property['price']
     print(
-        f"{player['name']} bought back {property['name']} for ${property['price']}.")
+        f"{player['name']} desipotecou a {property['name']} por €{property['price']}.")
 
 # Sell house
 
@@ -110,7 +111,7 @@ def sell_house(player, property):
     property['house'] -= 1
     player['money'] += property['price']
     print(
-        f"{player['name']} sold a house on {property['name']} for {property['price']}.")
+        f"{player['name']} vendou uma casa em {property['name']} por €{property['price']}.")
 
 # Check Winner
 
@@ -123,12 +124,12 @@ def check_winner(board, players):
         else:
             board_status += 1
     if board_status == 14:
-        players['properties'].sort()
         for p in players:
             if p == p[0]:
                 p['games_won'] += 1
                 p['games_played'] += 1
-                print(f"Congratulations, {p['name']}! You won the game!")
+                print(f"Parabéns, {p['name']}! Ganhou o jogo!")
+                print('És uma máquina e o yoda é o rei!')
             else:
                 p['games_played'] += 1
         save_file(player_file, players)
@@ -145,25 +146,36 @@ def dice_roll():
 # Player turn
 def play_turn(player, board, players):
     roll = dice_roll()
-    print(f"{player['name']}'s turn. Dice roll: {roll}")
+    print(f"É a vez do jogador {player['name']}.")
+    print(f"Lancamento do dado: {roll}")
 
     player['position'] = (player['position'] + roll) % len(board)
     current_property = board[player['position']]
 
-    print(f"{player['name']} landed on {current_property['name']}")
+    print(f"{player['name']} ficou na casa {current_property['name']}")
 
     if not current_property['owner']:
-        print(f"{current_property['name']} is unowned. Do you want to buy it?")
-        response = input("Enter 'yes' or 'no': ").lower()
-        if response == 'yes' and player['money'] >= current_property['price']:
-            buy_property(player, current_property)
+        buy_property_option = 1
+        while buy_property_option == 1:
+            print(
+                f"{current_property['name']} não tem proprietário. Quer comprar?")
+            response = input("Introduz 1 para sim e 2 para não: ")
+            if response == "1" and player['money'] >= current_property['price']:
+                buy_property(player, current_property)
+                buy_property_option = 0
+            elif response == "2":
+                print('Propriedade não comprada')
+                input('Carregue em qualquer botão para continuar')
+                buy_property_option = 0
+            else:
+                print('Resposta inválida!')
     elif current_property['owner'] == player['name'] and current_property['pawn'] != True:
         print(
-            f"{player['name']}, what do you want to do with {current_property['name']}?")
-        print("1. Build a house")
-        print("2. Pawn the property")
-        print("3. Sell a house")
-        choice = input("Enter the number of your choice: ")
+            f"{player['name']}, qual é a tua ação na propriedade {current_property['name']}?")
+        print("1. Construir Casa")
+        print("2. Hipotecar Propriedade")
+        print("3. Vender Casa")
+        choice = input("Slecione uma opção: ")
         if choice == '1' and player['money'] >= 100:
             build_house(player, current_property)
         elif choice == '2':
@@ -172,24 +184,31 @@ def play_turn(player, board, players):
             sell_house(player, current_property)
     elif current_property['pawn'] == True and current_property['owner'] == player['name']:
         print(
-            f"{current_property['name']} is pawned. Do you want to buy it back?")
-        response = input("Enter 'yes' or 'no': ").lower()
-        if response == 'yes' and player['money'] >= current_property['price']:
-            buy_back_property(player, current_property)
+            f"{current_property['name']} está hipotecada. Quer desipoteca-la?")
+        response = input("Selecione 1 para 'SIM' e 2 para 'NÃO': ").lower()
+        while True:
+            if response == '1' and player['money'] >= current_property['price']:
+                buy_back_property(player, current_property)
+                continue
+            elif response == '2':
+                print('Propriedade não foi desipotecada')
+                continue
+            else:
+                print('Opção inválida')
     elif current_property['pawn'] == True and current_property['owner'] != player['name']:
         print(
-            f"{current_property['name']} is owned by {current_property['owner']}.")
-        input('Press enter to continue')
+            f"{current_property['name']} é do jogador {current_property['owner']}.")
+        input('Pressione enter para continuar')
     else:
         rent_amount = current_property['rent']
         print(
-            f"{player['name']}, you landed on {current_property['name']} owned by {current_property['owner']}.")
-        print(f"You owe ${rent_amount} in rent.")
+            f"{player['name']}, ficou na casa {current_property['name']} que pertence ao jogador {current_property['owner']}.")
+        print(f"Deve €{rent_amount} de renda.")
         if player['money'] >= rent_amount:
             pay_rent(players, current_property['owner'], rent_amount)
         else:
             print(
-                f"{player['name']} doesn't have enough money to pay the rent. Property goes uncollected.")
+                f"{player['name']} não tem dinheiro suficiente para pagar o aluger. O aluguer não é cobrado..")
 
 
 # Play the game

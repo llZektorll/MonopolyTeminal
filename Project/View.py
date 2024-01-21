@@ -43,7 +43,7 @@ def main():
 1 - Novo Jogo
 2 - Histórico de jogos
 ''')
-    menu_option = int(input('Chose a option: '))
+    menu_option = int(input('Escolha uma opção: '))
     if menu_option == 1:
         reg_player(players)
         play_game(players, current_player, board)
@@ -53,3 +53,5 @@ def main():
         main()
     if menu_option == 9:
         quit()
+    else:
+        print('Opção inválida')
