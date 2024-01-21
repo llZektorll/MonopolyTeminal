@@ -13,8 +13,6 @@ def main():
             "owner": None, "house": 0, "pawn": False, "rent": 1},
         {"name": "Rua Faria Guimarães", "price": 60,
          "owner": None, "house": 0, "pawn": False, "rent": 6},
-        {"name": "Pague imposto sobre Capitais", "price": 200,
-            "owner": None, "house": 0, "pawn": False, "rent": 20},
         {"name": "Estação do Rossio", "price": 200,
             "owner": None, "house": 0, "pawn": False, "rent": 20},
         {"name": "Alamenda das linhas de Torres", "price": 100,

@@ -1,5 +1,6 @@
 import random
 import json
+import os
 
 
 # Load information from file
@@ -24,16 +25,41 @@ def save_file(players):
 
 
 def reg_player(players):
-    number_players = int(input('Quantas pessoas vão jogar? '))
+    used_names = []
+    
+    while True:
+        try:
+            number_players = int(input('Quantas pessoas vão jogar? '))
+            if 2 <= number_players <= 4:
+                break
+            else:
+                print('Número inválido. O número de jogadores deve estar entre 2 e 4.')
+        except ValueError:
+            print('Valor inválido. Insira um número inteiro válido entre 2 e 4.')
+
     for count in range(number_players):
-        player_name = input(f'Indique o nome do jogador {count+1}: ')
-        players.append({"name": player_name, "position": 0, "money": 1500,
-                       "properties": 0, "games_won": 0, "games_played": 0, "status": 0})
+        while True:
+            player_name = input(f'Indique o nome do jogador {count + 1}: ')
+            if player_name.strip() != '' and player_name not in used_names:
+                used_names.append(player_name)
+                break
+            elif player_name in used_names:
+                print('Este nome já está a ser utilizado. Escolha outro nome.')
+            else:
+                print('Nome não pode estar em branco.')
+
+        players.append({"name": player_name.strip(), "position": 0, "money": 1500,
+                        "properties": 0, "games_won": 0, "games_played": 0})
+
+
+
+
 
 # Display board
 
 
 def display_board(board):
+    os.system('cls')
     print('\n Tabuleiro do Monopolio ......')
     for i, property in enumerate(board):
         owner_info = (f'Owner: {property["owner"]}')
@@ -112,7 +138,7 @@ def check_winner(board, players):
             continue
         else:
             board_status += 1
-    if board_status == 14:
+    if board_status == 13:
         bubble_sort(players)
         for p in players:
             if p == players[0]:
@@ -176,18 +202,29 @@ def play_turn(player, board, players):
             else:
                 print('Resposta inválida!')
     elif current_property['owner'] == player['name'] and current_property['pawn'] != True:
-        print(
-            f"{player['name']}, qual é a tua ação na propriedade {current_property['name']}?")
-        print("1. Construir Casa")
-        print("2. Hipotecar Propriedade")
-        print("3. Vender Casa")
-        choice = input("Slecione uma opção: ")
-        if choice == '1' and player['money'] >= 100:
-            build_house(player, current_property)
-        elif choice == '2':
-            pawn_property(player, current_property)
-        elif choice == '3' and current_property['house'] > 0:
-            sell_house(player, current_property)
+        while True:
+            print(
+                f"{player['name']}, qual é a tua ação na propriedade {current_property['name']}?")
+            print("1. Construir Casa")
+            print("2. Hipotecar Propriedade")
+            print("3. Vender Casa")
+            choice = input("Selecione uma opção: ")
+            if choice == '1' and player['money'] >= 100:
+                build_house(player, current_property)
+                break  # Exit the loop after a valid choice
+            if choice == '1' and player['money'] < 100:
+                print('Não tem capital para a compra')
+            elif choice == '2':
+                pawn_property(player, current_property)
+                break  # Exit the loop after a valid choice
+            elif choice == '3' and current_property['house'] > 0:
+                sell_house(player, current_property)
+                break  # Exit the loop after a valid choice
+            elif choice =='3' and current_property['house'] == 0:
+                print('Não tem casas para vender')
+            else:
+                print('Opção inválida. Tente novamente.')
+
     elif current_property['pawn'] == True and current_property['owner'] == player['name']:
         while True:
             print(
@@ -223,11 +260,9 @@ def play_turn(player, board, players):
 def play_game(players, current_player, board):
     while True:
         player = players[current_player]
-        if player['status'] == 0:
-            display_board(board)
-            play_turn(player, board, players)
-            check_winner(board, players)
-        else:
-            continue
+        display_board(board)
+        play_turn(player, board, players)
+        check_winner(board, players)
+        
 
         current_player = (current_player + 1) % len(players)
