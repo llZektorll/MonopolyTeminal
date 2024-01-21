@@ -12,7 +12,7 @@ def main():
         {"name": "Caixa da Comunidade", "price": 10,
             "owner": None, "house": 0, "pawn": False, "rent": 1},
         {"name": "Rua Faria Guimarães", "price": 60,
-            "owner": None, "house": 0, "pawn": False, "rent": 6},
+         "owner": None, "house": 0, "pawn": False, "rent": 6},
         {"name": "Pague imposto sobre Capitais", "price": 200,
             "owner": None, "house": 0, "pawn": False, "rent": 20},
         {"name": "Estação do Rossio", "price": 200,

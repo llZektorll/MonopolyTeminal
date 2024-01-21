@@ -150,6 +150,7 @@ def play_turn(player, board, players):
     roll = dice_roll()
     print(f"É a vez do jogador {player['name']}.")
     print(f"Lancamento do dado: {roll}")
+    print(f'Dinheiro: {player["money"]}')
 
     player['position'] = (player['position'] + roll) % len(board)
     current_property = board[player['position']]
@@ -165,6 +166,9 @@ def play_turn(player, board, players):
             if response == "1" and player['money'] >= current_property['price']:
                 buy_property(player, current_property)
                 buy_property_option = 0
+            elif response == "1" and player['money'] < current_property['price']:
+                print('Sem capital para efectuar a compra')
+                input('Carregue em qualquer botão para continuar')
             elif response == "2":
                 print('Propriedade não comprada')
                 input('Carregue em qualquer botão para continuar')
