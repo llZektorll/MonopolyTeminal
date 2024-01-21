@@ -115,7 +115,7 @@ def sell_house(player, property):
 # Check Winner
 
 
-def check_winner(player, board, players):
+def check_winner(board, players):
     board_status = 0
     for location in board:
         if location['owner'] == None:
@@ -123,12 +123,12 @@ def check_winner(player, board, players):
         else:
             board_status += 1
     if board_status == 14:
-        user = players.sort(players['properties'])
-        for p in user:
+        players['properties'].sort()
+        for p in players:
             if p == p[0]:
                 p['games_won'] += 1
                 p['games_played'] += 1
-                print(f"Congratulations, {player['name']}! You won the game!")
+                print(f"Congratulations, {p['name']}! You won the game!")
             else:
                 p['games_played'] += 1
         save_file(player_file, players)
@@ -201,7 +201,7 @@ def play_game(players, current_player, board):
         if player['status'] == 0:
             display_board(board)
             play_turn(player, board, players)
-            check_winner(player, board, player)
+            check_winner(board, players)
         else:
             continue
 
