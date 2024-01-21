@@ -1,31 +1,24 @@
 import random
 import json
 
-# File path
-player_file = "data.json"
 
 # Load information from file
 
 
 def load_file():
     try:
-        with open(player_file, 'r') as file:
+        with open('data.json', 'r') as file:
             players = json.load(file)
     except FileNotFoundError:
-        players = {}
+        players = []
     return players
 
 # Save player information
 
 
-def save_file(player_file, players):
-    user = []
-    for p in players:
-        data = p['name': players['name'], 'games_won': players['games_won'],
-                 'games_played': players['game_played']]
-        user.append(data)
-    with open(player_file, 'w') as file:
-        json.dump(file, user, indent=2)
+def save_file(players):
+    with open('data.json', 'w') as file:
+        json.dump(players, file)
 
 # Register player
 
@@ -41,7 +34,6 @@ def reg_player(players):
 
 
 def display_board(board):
-    print(board)
     print('\n Tabuleiro do Monopolio ......')
     for i, property in enumerate(board):
         owner_info = (f'Owner: {property["owner"]}')
@@ -124,16 +116,29 @@ def check_winner(board, players):
         else:
             board_status += 1
     if board_status == 14:
+        bubble_sort(players)
         for p in players:
-            if p == p[0]:
+            if p == players[0]:
                 p['games_won'] += 1
                 p['games_played'] += 1
                 print(f"Parabéns, {p['name']}! Ganhou o jogo!")
                 print('És uma máquina e o yoda é o rei!')
             else:
                 p['games_played'] += 1
-        save_file(player_file, players)
+        save_file(players)
+        quit()
 
+
+# Order players
+
+def bubble_sort(players):
+    for i in range(len(players)):
+        for j in range(0, len(players)-i-1):
+            if players[j]['properties'] < players[j+1]['properties']:
+                temp = players[j+1]
+                players[j+1] = players[j]
+                players[j] = temp
+                players
 
 # Dice Roll
 
