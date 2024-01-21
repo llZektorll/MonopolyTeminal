@@ -9,7 +9,7 @@ def load_file():
     try:
         with open('data.json', 'r') as file:
             players = json.load(file)
-    except FileNotFoundError:
+    except json.decoder.JSONDecodeError:
         players = []
     return players
 
@@ -53,13 +53,10 @@ def display_board(board):
 # Pay Rent
 
 
-def pay_rent(players, owner, rent):
-    for p in players:
-        if p['name'] != owner:
-            if p['money'] <= rent:
-                p['money'] -= rent
-                print(
-                    f"{players['name']} pagou €{rent} em renda ao jogador {owner}.")
+def pay_rent(player, owner, rent_amount):
+    player['money'] -= rent_amount
+    print(
+        f"{player['name']} pagou €{rent_amount} em renda ao jogador {owner}.")
 
 # Buy Property
 
@@ -210,7 +207,7 @@ def play_turn(player, board, players):
             f"{player['name']}, ficou na casa {current_property['name']} que pertence ao jogador {current_property['owner']}.")
         print(f"Deve €{rent_amount} de renda.")
         if player['money'] >= rent_amount:
-            pay_rent(players, current_property['owner'], rent_amount)
+            pay_rent(player, current_property['owner'], rent_amount)
         else:
             print(
                 f"{player['name']} não tem dinheiro suficiente para pagar o aluger. O aluguer não é cobrado..")
