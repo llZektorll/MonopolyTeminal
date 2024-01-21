@@ -1,1 +1,1 @@
-[{"name": "b", "position": 4, "money": 437, "properties": 7, "games_won": 1, "games_played": 1}, {"name": "a", "position": 5, "money": 278, "properties": 6, "games_won": 0, "games_played": 1}]
+[{"name": "p1", "position": 1, "money": 770, "properties": 7, "games_won": 1, "games_played": 1, "status": 0}, {"name": "p2", "position": 5, "money": 598, "properties": 7, "games_won": 0, "games_played": 1, "status": 0}]
