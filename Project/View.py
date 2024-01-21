@@ -43,16 +43,16 @@ def main():
 1 - Novo Jogo
 2 - Histórico de jogos
 ''')
-    menu_option = int(input('Escolha uma opção: '))
-    if menu_option == 1:
+    menu_option = input('Escolha uma opção: ')
+    if menu_option == "1":
         reg_player(players)
         play_game(players, current_player, board)
         main()
-    if menu_option == 2:
+    if menu_option == "2":
         player_history = load_file()
         print(player_history)
         main()
-    if menu_option == 9:
+    if menu_option == "9":
         quit()
     else:
         print('Opção inválida')

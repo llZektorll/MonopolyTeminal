@@ -24,11 +24,24 @@ def save_file(players):
 
 
 def reg_player(players):
-    number_players = int(input('Quantas pessoas vão jogar? '))
-    for count in range(number_players):
-        player_name = input(f'Indique o nome do jogador {count+1}: ')
-        players.append({"name": player_name, "position": 0, "money": 1500,
-                       "properties": 0, "games_won": 0, "games_played": 0, "status": 0})
+    while True:
+        number_players = input('Quantas pessoas vão jogar? ')
+        try:
+            number_players = int(number_players)
+        except ValueError:
+            print('Valor inválido. Insira um número inteiro válido.')
+            continue
+        for count in range(number_players):
+            while True:
+                player_name = input(f'Indique o nome do jogador {count + 1}: ')
+                if player_name.strip() == '':
+                    print('Nome não pode estar em branco.')
+                else:
+                    players.append({"name": player_name.strip(), "position": 0, "money": 1500,
+                                    "properties": 0, "games_won": 0, "games_played": 0, "status": 0})
+                    break
+            continue
+        break
 
 # Display board
 
