@@ -32,7 +32,8 @@ def main():
         {"name": "Rua Ferreira Borges", "price": 140,
             "owner": None, "house": 0, "pawn": False, "rent": 14},
     ]
-    print('''
+    while True:
+        print('''
 ##########################
 ###  Jogo do Monopólio ###
 ##########################
@@ -40,18 +41,20 @@ def main():
 9 - Sair
 1 - Novo Jogo
 2 - Histórico de jogos
-''')
-    menu_option = input('Escolha uma opção: ')
-    if menu_option == "1":
-        reg_player(players)
-        play_game(players, current_player, board)
-        main()
-    if menu_option == "2":
-        player_history = load_file()
-        print(player_history)
-        main()
-    if menu_option == "9":
-        quit()
-    else:
-        print('Opção inválida')
-        main()
+    ''')
+        
+
+        try:
+            menu_option = int(input('Escolha uma opção: '))
+            if menu_option == 1:
+                reg_player(players)
+                play_game(players, current_player, board)
+            elif menu_option == 2:
+                player_history = load_file()
+                print(player_history)
+            elif menu_option == 9:
+                quit()
+            else:
+                print('Opção inválida')
+        except ValueError:
+            print('Opção inválida.')

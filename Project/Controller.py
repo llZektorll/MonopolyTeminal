@@ -25,11 +25,35 @@ def save_file(players):
 
 
 def reg_player(players):
-    number_players = int(input('Quantas pessoas vão jogar? '))
+    used_names = []
+    
+    while True:
+        try:
+            number_players = int(input('Quantas pessoas vão jogar? '))
+            if 2 <= number_players <= 4:
+                break
+            else:
+                print('Número inválido. O número de jogadores deve estar entre 2 e 4.')
+        except ValueError:
+            print('Valor inválido. Insira um número inteiro válido entre 2 e 4.')
+
     for count in range(number_players):
-        player_name = input(f'Indique o nome do jogador {count+1}: ')
-        players.append({"name": player_name, "position": 0, "money": 1500,
-                       "properties": 0, "games_won": 0, "games_played": 0, "status": 0})
+        while True:
+            player_name = input(f'Indique o nome do jogador {count + 1}: ')
+            if player_name.strip() != '' and player_name not in used_names:
+                used_names.append(player_name)
+                break
+            elif player_name in used_names:
+                print('Este nome já está a ser utilizado. Escolha outro nome.')
+            else:
+                print('Nome não pode estar em branco.')
+
+        players.append({"name": player_name.strip(), "position": 0, "money": 1500,
+                        "properties": 0, "games_won": 0, "games_played": 0})
+
+
+
+
 
 # Display board
 
@@ -38,7 +62,7 @@ def display_board(board):
     os.system('cls')
     print('\n Tabuleiro do Monopolio ......')
     for i, property in enumerate(board):
-        owner_info = (f'Dono: {property["owner"]}')
+        owner_info = (f'Owner: {property["owner"]}')
         if property['pawn'] == True:
             owner_info += " (Penhorado)"
 
@@ -50,7 +74,8 @@ def display_board(board):
 
         # Use format specifiers to specify a fixed width for the name
         print(
-            f"{index_format}{property['name']:<30} - {property['price']:>3}€ - {owner_info} - Casas: {property['house']}")
+            f"{index_format}{property['name']:<30} - {property['price']:>3}$ - {owner_info} - Houses: {property['house']}")
+    print()
 
 # Pay Rent
 
